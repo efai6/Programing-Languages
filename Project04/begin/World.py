@@ -12,6 +12,7 @@ class World(object):
 		self.__organisms = []
 		self.__newOrganisms = []
 		self.__separator = '.'
+		self.__plagueCountdown = 0
 
 	@property
 	def worldX(self):
@@ -28,6 +29,14 @@ class World(object):
 	@turn.setter
 	def turn(self, value):
 		self.__turn = value
+	
+	@property
+	def plagueCounter(self):
+		return self.__plagueCountdown
+
+	@plagueCounter.setter
+	def plagueCounter(self, value):
+		self.__plagueCountdown = value
 
 	@property
 	def organisms(self):
@@ -76,6 +85,12 @@ class World(object):
 		self.organisms.extend(self.newOrganisms)
 		self.organisms.sort(key=lambda o: o.initiative, reverse=True)
 		self.newOrganisms = []
+
+		if self.plagueCounter > 0:
+			for org in self.organisms:
+				org.liveLength //= 2
+			self.plagueCounter = self.plagueCounter - 1
+			print(f"moves till the end of the plague {self.plagueCounter}")	 
 
 		self.turn += 1
 
@@ -156,3 +171,7 @@ class World(object):
 					result += self.separator
 			result += '\n'
 		return result
+	
+	def Plague(self):
+		self.plagueCounter = 2
+		print("Plague was activated")
