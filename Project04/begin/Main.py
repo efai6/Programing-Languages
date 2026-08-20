@@ -43,8 +43,11 @@ if __name__ == '__main__':
 	print(pyWorld)
 
 	for _ in range(0, 50):
-		user_input = input("Enter a command to proceed:[Enter] to continue simulation, [p] to enable plague, [spawn] to enter a organism spawn menu: ").strip().lower()
-		if user_input == 'p':
+		user_input = input("Enter a command to proceed:[Enter] to continue simulation, [q] to end the simulation, [p] to enable plague, [spawn] to enter a organism spawn menu ").strip().lower()
+		if user_input == "q":
+			print("Thanks for playing!")
+			break
+		elif user_input == 'p':
 			pyWorld.Plague()
 		elif user_input == 'spawn':
 			for i, cls in enumerate(available_creatures):
